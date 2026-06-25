@@ -1,8 +1,20 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
-const TEE = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/da82247b-2f4a-4157-bd4f-9665af90c7b9.jpeg';
-const LONG = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/files/8872e42b-cf45-4aaa-9013-a2554545e4d5.jpg';
+// Black x Croc — Wings Tee (розовые крылья, спина)
+const BXC_WINGS_PINK_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/da82247b-2f4a-4157-bd4f-9665af90c7b9.jpeg';
+// Black x Croc — Wings Tee дубль (тот же принт, второй вариант загрузки)
+const BXC_WINGS_PINK_BACK2 = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/4338192c-7845-4c62-9660-316956e17701.jpeg';
+// Black x Croc — Wings Tee (зелёные крылья, спина)
+const BXC_WINGS_GREEN_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/51312d84-dfe2-4114-a84b-84d11cca85cc.jpeg';
+// 50GYM — Logo Tee (кислотно-зелёный лого, перед)
+const GYM_TEE_GREEN = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/2be96aaa-dff4-487b-aa2c-9eba64acf182.jpeg';
+// 50GYM — Logo Tee (розовый лого, перед)
+const GYM_TEE_PINK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/c23241c0-ba8c-4b72-9a32-ca409bc2ea6b.jpeg';
+// 50GYM — Longsleeve (розовый лого)
+const GYM_LONG_PINK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/611ee8ea-ce25-4830-a19b-3d42265d9330.jpeg';
+// 50GYM — Logo Tee второй ракурс
+const GYM_TEE_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/962fc7b8-f697-42bb-a204-1e7620395366.jpeg';
 const CAP = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/files/d18b7b3c-f983-4dd0-bfb2-c9fe09b76c6d.jpg';
 
 type Club = { id: string; name: string; color: string; tagline: string; emblem: string };
@@ -19,12 +31,14 @@ type Product = {
 };
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: 'Crown Oversize Tee', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: TEE, badge: 'Drop', color: '#FF2D93' },
-  { id: 2, name: 'Skull Longsleeve', club: '50GYM', cat: 'Лонгсливы', price: 3290, img: LONG, badge: 'New', color: '#39FF14' },
-  { id: 3, name: 'Crown Snapback', club: 'Black x Croc', cat: 'Кепки', price: 1990, img: CAP, badge: 'Limited', color: '#FF2D93' },
-  { id: 4, name: 'Acid Logo Tee', club: '50GYM', cat: 'Футболки', price: 2490, img: TEE, badge: 'New', color: '#39FF14' },
-  { id: 5, name: 'REPiT Longsleeve', club: 'REPiT', cat: 'Лонгсливы', price: 3290, img: LONG, badge: 'Drop', color: '#FF6A00' },
-  { id: 6, name: 'Street Cap', club: 'REPiT', cat: 'Кепки', price: 1990, img: CAP, color: '#FF6A00' },
+  { id: 1, name: 'Wings Tee Pink', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK, badge: 'Drop', color: '#FF2D93' },
+  { id: 2, name: 'Wings Tee Pink II', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK2, badge: 'Limited', color: '#FF2D93' },
+  { id: 3, name: 'Wings Tee Green', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_GREEN_BACK, badge: 'New', color: '#FF2D93' },
+  { id: 4, name: 'Logo Tee Green', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_GREEN, badge: 'New', color: '#39FF14' },
+  { id: 5, name: 'Logo Tee Pink', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_PINK, color: '#39FF14' },
+  { id: 6, name: 'Logo Tee Back', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_BACK, badge: 'Drop', color: '#39FF14' },
+  { id: 7, name: 'Logo Longsleeve Pink', club: '50GYM', cat: 'Лонгсливы', price: 3290, img: GYM_LONG_PINK, badge: 'New', color: '#39FF14' },
+  { id: 8, name: 'Street Cap', club: 'REPiT', cat: 'Кепки', price: 1990, img: CAP, color: '#FF6A00' },
 ];
 
 const CATS = ['Все', 'Футболки', 'Лонгсливы', 'Носки', 'Кепки'];
