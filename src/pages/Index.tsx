@@ -216,6 +216,16 @@ const BXC_WINGS_PINK_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e
 const BXC_WINGS_PINK_BACK2 = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/4338192c-7845-4c62-9660-316956e17701.jpeg';
 // Black x Croc — Wings Tee (зелёные крылья, спина)
 const BXC_WINGS_GREEN_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/51312d84-dfe2-4114-a84b-84d11cca85cc.jpeg';
+// Black x Croc — Thunder Croc Tee (синий крокодил молния, спина + грудь)
+const BXC_THUNDER_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/55ae7217-fdd6-435e-8603-05ff6fbb7561.png';
+// Black x Croc — Graffiti Bus Tee (граффити-автобус, грудь / зелёный крок, спина)
+const BXC_GRAFFITI_FRONT = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/703df703-2f59-4edc-bf40-569f2034f8bc.png';
+// Black x Croc — Fitness Club Tee (ретро лого, грудь)
+const BXC_FITNESS_FRONT = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/0a7afe3a-5bf8-44f5-981c-4aad8f72c0cb.png';
+// Black x Croc — Drip Tee (жёлтый 3D лого, спина + грудь)
+const BXC_DRIP_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/2fe67a25-3cc8-4421-8630-6f634e160064.png';
+// Black x Croc — Gothic Tee (готический лого, грудь + логотип спина)
+const BXC_GOTHIC_FRONT = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/7c2f3795-458d-4190-ad96-e52a191198b7.png';
 // 50GYM — Logo Tee (кислотно-зелёный лого, перед)
 const GYM_TEE_GREEN = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/2be96aaa-dff4-487b-aa2c-9eba64acf182.jpeg';
 // 50GYM — Logo Tee (розовый лого, перед)
@@ -240,13 +250,22 @@ type Product = {
 };
 
 const PRODUCTS: Product[] = [
+  // Black x Croc — Wings
   { id: 1, name: 'Wings Tee Pink', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK, img2: BXC_WINGS_PINK_BACK2, badge: 'Drop', color: '#FF2D93' },
   { id: 2, name: 'Wings Tee Pink II', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK2, img2: BXC_WINGS_PINK_BACK, badge: 'Limited', color: '#FF2D93' },
   { id: 3, name: 'Wings Tee Green', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_GREEN_BACK, badge: 'New', color: '#FF2D93' },
+  // Black x Croc — новые
+  { id: 9, name: 'Thunder Croc Tee', club: 'Black x Croc', cat: 'Футболки', price: 2790, img: BXC_THUNDER_BACK, badge: 'Drop', color: '#FF2D93' },
+  { id: 10, name: 'Graffiti Bus Tee', club: 'Black x Croc', cat: 'Футболки', price: 2790, img: BXC_GRAFFITI_FRONT, badge: 'New', color: '#FF2D93' },
+  { id: 11, name: 'Fitness Club Tee', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_FITNESS_FRONT, color: '#FF2D93' },
+  { id: 12, name: 'Drip Tee Yellow', club: 'Black x Croc', cat: 'Футболки', price: 2790, img: BXC_DRIP_BACK, badge: 'Limited', color: '#FF2D93' },
+  { id: 13, name: 'Gothic Logo Tee', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_GOTHIC_FRONT, badge: 'New', color: '#FF2D93' },
+  // 50GYM
   { id: 4, name: 'Logo Tee Green', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_GREEN, img2: GYM_TEE_BACK, badge: 'New', color: '#39FF14' },
   { id: 5, name: 'Logo Tee Pink', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_PINK, img2: GYM_TEE_BACK, color: '#39FF14' },
   { id: 6, name: 'Logo Tee Back', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_BACK, img2: GYM_TEE_GREEN, badge: 'Drop', color: '#39FF14' },
   { id: 7, name: 'Logo Longsleeve Pink', club: '50GYM', cat: 'Лонгсливы', price: 3290, img: GYM_LONG_PINK, badge: 'New', color: '#39FF14' },
+  // REPiT
   { id: 8, name: 'Street Cap', club: 'REPiT', cat: 'Кепки', price: 1990, img: CAP, color: '#FF6A00' },
 ];
 
