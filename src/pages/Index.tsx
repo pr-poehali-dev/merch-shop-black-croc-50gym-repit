@@ -26,17 +26,17 @@ const CLUBS: Club[] = [
 ];
 
 type Product = {
-  id: number; name: string; club: string; price: number; cat: string; img: string;
+  id: number; name: string; club: string; price: number; cat: string; img: string; img2?: string;
   badge?: 'New' | 'Drop' | 'Limited'; color: string;
 };
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: 'Wings Tee Pink', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK, badge: 'Drop', color: '#FF2D93' },
-  { id: 2, name: 'Wings Tee Pink II', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK2, badge: 'Limited', color: '#FF2D93' },
+  { id: 1, name: 'Wings Tee Pink', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK, img2: BXC_WINGS_PINK_BACK2, badge: 'Drop', color: '#FF2D93' },
+  { id: 2, name: 'Wings Tee Pink II', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_PINK_BACK2, img2: BXC_WINGS_PINK_BACK, badge: 'Limited', color: '#FF2D93' },
   { id: 3, name: 'Wings Tee Green', club: 'Black x Croc', cat: 'Футболки', price: 2490, img: BXC_WINGS_GREEN_BACK, badge: 'New', color: '#FF2D93' },
-  { id: 4, name: 'Logo Tee Green', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_GREEN, badge: 'New', color: '#39FF14' },
-  { id: 5, name: 'Logo Tee Pink', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_PINK, color: '#39FF14' },
-  { id: 6, name: 'Logo Tee Back', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_BACK, badge: 'Drop', color: '#39FF14' },
+  { id: 4, name: 'Logo Tee Green', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_GREEN, img2: GYM_TEE_BACK, badge: 'New', color: '#39FF14' },
+  { id: 5, name: 'Logo Tee Pink', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_PINK, img2: GYM_TEE_BACK, color: '#39FF14' },
+  { id: 6, name: 'Logo Tee Back', club: '50GYM', cat: 'Футболки', price: 2490, img: GYM_TEE_BACK, img2: GYM_TEE_GREEN, badge: 'Drop', color: '#39FF14' },
   { id: 7, name: 'Logo Longsleeve Pink', club: '50GYM', cat: 'Лонгсливы', price: 3290, img: GYM_LONG_PINK, badge: 'New', color: '#39FF14' },
   { id: 8, name: 'Street Cap', club: 'REPiT', cat: 'Кепки', price: 1990, img: CAP, color: '#FF6A00' },
 ];
@@ -180,7 +180,10 @@ const Index = () => {
                 className="glow-club group relative overflow-hidden rounded-2xl border border-black/10 bg-white transition"
               >
                 <div className="relative aspect-square overflow-hidden bg-[#eee]">
-                  <img src={p.img} alt={p.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <img src={p.img} alt={p.name} loading="lazy" className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${p.img2 ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
+                  {p.img2 && (
+                    <img src={p.img2} alt={`${p.name} — вид сзади`} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  )}
                   {p.badge && (
                     <span className={`absolute left-3 top-3 rotate-[-6deg] px-2.5 py-1 font-display text-xs font-bold uppercase ${badgeStyle[p.badge]}`}>{p.badge}</span>
                   )}
