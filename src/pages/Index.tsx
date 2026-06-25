@@ -107,7 +107,7 @@ const Index = () => {
           </div>
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-8 rotate-3 bg-club/20 blur-2xl" />
-            <img src={TEE} alt="Хиро мерч" loading="eager" className="relative w-full max-w-sm rounded-2xl object-cover shadow-2xl" />
+            <img src={BXC_WINGS_PINK_BACK} alt="Хиро мерч" loading="eager" className="relative w-full max-w-sm rounded-2xl object-cover shadow-2xl" />
             <span className="absolute -left-2 top-6 rotate-[-8deg] animate-spray-wipe bg-neon-green px-3 py-1 font-display text-sm font-bold uppercase text-ink">drop 01</span>
           </div>
         </div>
