@@ -1,6 +1,215 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
+const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+const REVIEWS = [
+  { name: 'Артём К.', text: 'Качество огонь, оверсайз сидит идеально. Брал L — отлично.', stars: 5 },
+  { name: 'Маша Д.', text: 'Крылья на спине — просто мечта. Все в зале спрашивают где взял.', stars: 5 },
+  { name: 'Игорь С.', text: 'Хороший плотный хлопок, после стирки не садится.', stars: 4 },
+];
+
+const CARE_ICONS: { icon: string; label: string }[] = [
+  { icon: '30°', label: 'Стирка 30°' },
+  { icon: '✕', label: 'Не отбеливать' },
+  { icon: '♨', label: 'Утюжить слабо' },
+  { icon: '⊗', label: 'Не сушить' },
+];
+
+type PdpProps = {
+  product: Product;
+  onClose: () => void;
+  onAddToCart: () => void;
+  related: Product[];
+  onOpenProduct: (p: Product) => void;
+};
+
+const ProductPage = ({ product: p, onClose, onAddToCart, related, onOpenProduct }: PdpProps) => {
+  const images = [p.img, ...(p.img2 ? [p.img2] : [])];
+  const [activeImg, setActiveImg] = useState(0);
+  const [size, setSize] = useState('');
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = () => {
+    if (!size) return;
+    onAddToCart();
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-white" style={{ ['--club' as string]: p.color }}>
+      {/* top bar */}
+      <div className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-black/10 bg-white/90 px-4 backdrop-blur-md md:px-8">
+        <button onClick={onClose} className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide transition hover:text-club">
+          <Icon name="ArrowLeft" size={18} /> Назад
+        </button>
+        <nav className="hidden text-xs text-black/40 md:block">
+          Каталог → {p.club} → {p.name}
+        </nav>
+        <span className="font-display text-lg font-bold">{p.price.toLocaleString('ru-RU')} ₽</span>
+      </div>
+
+      <div className="container py-8 md:py-12">
+        <div className="grid gap-10 md:grid-cols-2 lg:gap-16">
+          {/* GALLERY */}
+          <div className="flex gap-3">
+            {images.length > 1 && (
+              <div className="flex flex-col gap-2">
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImg(i)}
+                    className={`h-16 w-16 overflow-hidden rounded-lg border-2 transition ${activeImg === i ? 'border-club' : 'border-transparent opacity-50'}`}
+                  >
+                    <img src={img} alt="" className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="relative flex-1 overflow-hidden rounded-2xl bg-[#f0f0f0]">
+              <img
+                src={images[activeImg]}
+                alt={p.name}
+                className="w-full object-cover transition duration-500"
+              />
+              {p.badge && (
+                <span className={`absolute left-4 top-4 rotate-[-6deg] px-3 py-1 font-display text-sm font-bold uppercase ${badgeStyle[p.badge]}`}>
+                  {p.badge}
+                </span>
+              )}
+              {images.length > 1 && (
+                <div className="absolute bottom-4 right-4 flex gap-1">
+                  {images.map((_, i) => (
+                    <button key={i} onClick={() => setActiveImg(i)}
+                      className={`h-2 w-2 rounded-full transition ${activeImg === i ? 'bg-club' : 'bg-black/20'}`} />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* INFO */}
+          <div className="flex flex-col">
+            <span className="text-xs font-bold uppercase tracking-widest text-club">{p.club}</span>
+            <h1 className="mt-2 font-display text-3xl font-bold leading-tight md:text-4xl">{p.name}</h1>
+            <p className="mt-1 font-display text-2xl font-bold">{p.price.toLocaleString('ru-RU')} ₽</p>
+
+            {/* SIZES */}
+            <div className="mt-6">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-sm font-bold uppercase tracking-wide">Размер</span>
+                <button className="text-xs text-club underline">Таблица размеров</button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {SIZES.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setSize(s)}
+                    className={`h-10 w-12 rounded-lg border-2 font-display text-sm font-bold transition ${
+                      size === s
+                        ? 'border-club bg-club text-white'
+                        : 'border-black/15 hover:border-club hover:text-club'
+                    }`}
+                  >{s}</button>
+                ))}
+              </div>
+              {!size && <p className="mt-2 text-xs text-black/40">Выберите размер</p>}
+            </div>
+
+            {/* ADD TO CART */}
+            <button
+              onClick={handleAdd}
+              disabled={!size}
+              className={`mt-6 flex w-full items-center justify-center gap-2 py-4 font-display text-lg font-bold uppercase tracking-wide text-white transition ${
+                size ? 'bg-ink hover:bg-club' : 'cursor-not-allowed bg-black/20'
+              }`}
+            >
+              {added ? <><Icon name="Check" size={20} /> Добавлено!</> : <><Icon name="ShoppingBag" size={20} /> В корзину</>}
+            </button>
+            <button className="mt-3 flex w-full items-center justify-center gap-2 border border-black/15 py-4 font-display text-sm font-bold uppercase tracking-wide transition hover:border-club hover:text-club">
+              <Icon name="Heart" size={18} /> В избранное
+            </button>
+
+            {/* COMPOSITION */}
+            <div className="mt-8 border-t border-black/10 pt-6">
+              <h3 className="font-display text-sm font-bold uppercase tracking-widest">Состав и уход</h3>
+              <p className="mt-2 text-sm text-black/60">100% хлопок, плотность 280 г/м². Оверсайз крой. Принт нанесён методом DTF — не трескается при стирке.</p>
+              <div className="mt-3 flex gap-4">
+                {CARE_ICONS.map((c) => (
+                  <div key={c.label} className="flex flex-col items-center gap-1">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 text-xs font-bold">{c.icon}</span>
+                    <span className="text-[10px] text-black/40">{c.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DELIVERY */}
+            <div className="mt-6 space-y-2 border-t border-black/10 pt-6 text-sm">
+              {[
+                { icon: 'Truck', text: 'Доставка 2–5 дней · от 350 ₽, бесплатно от 5000 ₽' },
+                { icon: 'MapPin', text: 'Самовывоз из клубов Black x Croc, 50GYM, REPiT' },
+                { icon: 'RotateCcw', text: 'Обмен и возврат в течение 14 дней' },
+              ].map((r) => (
+                <div key={r.text} className="flex items-start gap-3 text-black/60">
+                  <Icon name={r.icon} size={16} className="mt-0.5 shrink-0 text-club" />
+                  {r.text}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* REVIEWS */}
+        <div className="mt-16 border-t border-black/10 pt-12">
+          <h2 className="font-display text-2xl font-bold">Отзывы <span className="text-club">({REVIEWS.length})</span></h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {REVIEWS.map((r) => (
+              <div key={r.name} className="rounded-2xl border border-black/10 bg-[#f7f7f7] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold">{r.name}</span>
+                  <span className="text-club">{'★'.repeat(r.stars)}</span>
+                </div>
+                <p className="mt-2 text-sm text-black/60">{r.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* RELATED */}
+        {related.length > 0 && (
+          <div className="mt-16 border-t border-black/10 pt-12">
+            <h2 className="font-display text-2xl font-bold">С этим покупают</h2>
+            <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+              {related.map((rp) => (
+                <button
+                  key={rp.id}
+                  onClick={() => onOpenProduct(rp)}
+                  style={{ ['--club' as string]: rp.color }}
+                  className="glow-club group overflow-hidden rounded-2xl border border-black/10 bg-white text-left transition"
+                >
+                  <div className="relative aspect-square overflow-hidden bg-[#eee]">
+                    <img src={rp.img} alt={rp.name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    {rp.badge && (
+                      <span className={`absolute left-2 top-2 rotate-[-6deg] px-2 py-0.5 font-display text-[10px] font-bold uppercase ${badgeStyle[rp.badge]}`}>{rp.badge}</span>
+                    )}
+                  </div>
+                  <div className="p-3">
+                    <span className="text-[10px] uppercase tracking-widest text-club">{rp.club}</span>
+                    <p className="font-display text-sm font-bold leading-tight">{rp.name}</p>
+                    <p className="mt-1 font-display text-sm">{rp.price.toLocaleString('ru-RU')} ₽</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Black x Croc — Wings Tee (розовые крылья, спина)
 const BXC_WINGS_PINK_BACK = 'https://cdn.poehali.dev/projects/19f10c4d-b84f-455e-ac3d-51ec39193f42/bucket/da82247b-2f4a-4157-bd4f-9665af90c7b9.jpeg';
 // Black x Croc — Wings Tee дубль (тот же принт, второй вариант загрузки)
@@ -53,11 +262,22 @@ const Index = () => {
   const [club, setClub] = useState<Club>(CLUBS[0]);
   const [cat, setCat] = useState('Все');
   const [cart, setCart] = useState(0);
+  const [pdp, setPdp] = useState<Product | null>(null);
 
   const filtered = PRODUCTS.filter((p) => cat === 'Все' || p.cat === cat);
+  const related = pdp ? PRODUCTS.filter((p) => p.id !== pdp.id && (p.club === pdp.club || p.cat === pdp.cat)).slice(0, 4) : [];
 
   return (
     <div className="min-h-screen bg-white text-ink" style={{ ['--club' as string]: club.color }}>
+      {pdp && (
+        <ProductPage
+          product={pdp}
+          onClose={() => setPdp(null)}
+          onAddToCart={() => setCart((c) => c + 1)}
+          related={related}
+          onOpenProduct={(p) => { setPdp(p); window.scrollTo(0, 0); }}
+        />
+      )}
       {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur-md">
         <div className="container flex h-16 items-center justify-between gap-4">
@@ -177,7 +397,8 @@ const Index = () => {
               <article
                 key={p.id}
                 style={{ ['--club' as string]: p.color }}
-                className="glow-club group relative overflow-hidden rounded-2xl border border-black/10 bg-white transition"
+                className="glow-club group relative cursor-pointer overflow-hidden rounded-2xl border border-black/10 bg-white transition"
+                onClick={() => { setPdp(p); window.scrollTo(0, 0); }}
               >
                 <div className="relative aspect-square overflow-hidden bg-[#eee]">
                   <img src={p.img} alt={p.name} loading="lazy" className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${p.img2 ? 'group-hover:opacity-0' : 'group-hover:scale-105'}`} />
