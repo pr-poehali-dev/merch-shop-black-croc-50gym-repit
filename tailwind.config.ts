@@ -19,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				display: ['Oswald', 'sans-serif'],
-				sans: ['Rubik', 'sans-serif'],
+				display: ['Montserrat', 'sans-serif'],
+				sans: ['Montserrat', 'sans-serif'],
 			},
 			colors: {
 				neon: {
