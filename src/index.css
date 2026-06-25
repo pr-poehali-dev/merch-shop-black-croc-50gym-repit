@@ -96,6 +96,39 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    --club: #ff2d93;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display uppercase tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-club {
+    color: var(--club);
+  }
+  .bg-club {
+    background-color: var(--club);
+  }
+  .border-club {
+    border-color: var(--club);
+  }
+  .ring-club {
+    box-shadow: 0 0 0 1px var(--club);
+  }
+  .glow-club:hover {
+    box-shadow: 0 0 24px -2px var(--club);
+    border-color: var(--club);
+  }
+  .grid-noise {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 }
